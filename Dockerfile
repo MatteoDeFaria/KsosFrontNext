@@ -18,7 +18,11 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/yarn.lock ./
-COPY --from=builder /app/next ./next
+COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/postcss.config.mjs ./
+COPY --from=builder /app/tailwind.config.ts ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
 
 EXPOSE 3000
 
