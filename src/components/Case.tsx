@@ -40,7 +40,7 @@ export default async function Case() {
     'CHALLENGER',
   ];
 
-  const res = await fetch(`${process.env.KSOS_API}/lol/leaderboard`);
+  const res = await fetch(`https://api.ksos.me/lol/leaderboard`);
   const data: Data[] = await res.json();
 
   return (

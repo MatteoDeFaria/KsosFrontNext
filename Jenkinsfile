@@ -6,7 +6,6 @@ pipeline {
         registryCredential = 'docker-hub-credentials'
         REGISTRY = 'tekmatteo/ksos-front'
         CONTAINER_NAME = 'KsosFront'
-        KSOS_API = credentials('ksos-api')
     }
 
     stages {
@@ -64,7 +63,7 @@ pipeline {
             agent { node { label 'pi5' } }
 
             steps {
-                sh "docker run --name $CONTAINER_NAME --restart always --env KSOS_API=$KSOS_API -p 3001:3000 -d $REGISTRY:latest"
+                sh "docker run --name $CONTAINER_NAME --restart always -p 3001:3000 -d $REGISTRY:latest"
             }
         }
     }
