@@ -13,6 +13,14 @@ type Data = {
   tagLine: string;
 };
 
+async function getData() {
+  const res = await fetch(`https://api.ksos.me/lol/leaderboard`);
+
+  if (!res.ok) throw new Error('Failed to fetch data');
+
+  return res.json();
+}
+
 export default async function Case() {
   const image = [
     '/Rank=Iron.png',
@@ -40,8 +48,7 @@ export default async function Case() {
     'CHALLENGER',
   ];
 
-  const res = await fetch(`https://api.ksos.me/lol/leaderboard`);
-  const data: Data[] = await res.json();
+  const data: Data[] = await getData();
 
   return (
     <Suspense fallback={'Loading ...'}>
