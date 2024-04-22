@@ -6,7 +6,7 @@ COPY package*.json ./
 COPY tsconfig.json ./
 COPY yarn.lock ./
 
-RUN yarn install
+RUN yarn install --ignore-engines
 
 COPY . .
 
