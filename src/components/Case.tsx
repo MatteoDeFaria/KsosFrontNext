@@ -48,7 +48,7 @@ export default function Case() {
     const fetchLeaderboard = async () => {
       try {
         const response = await fetch(
-          `https://api.ksos.me/lol/leaderboard`
+          `https://api.ksos.me/lol/leaderboard/RANKED_SOLO_5x5`
         ).then((res) => res.json());
         setData(response);
       } catch (e) {
