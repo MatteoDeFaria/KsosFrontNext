@@ -2,6 +2,9 @@ FROM node:20.10.0-alpine3.18 as builder
 
 WORKDIR /app
 
+ARG NEXT_PUBLIC_KSOS_API_URL
+ENV NEXT_PUBLIC_KSOS_API_URL=${NEXT_PUBLIC_KSOS_API_URL}
+
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY yarn.lock ./

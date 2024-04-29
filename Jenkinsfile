@@ -34,9 +34,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build "$REGISTRY:$BUILD_NUMBER"
-                }
+                sh "docker build -t $REGISTRY:$BUILD_NUMBER --build-args NEXT_PUBLIC_KSOS_API_URL=$NEXT_PUBLIC_KSOS_API_URL"
             }
         }
 
