@@ -33,19 +33,13 @@ const moon = (
 );
 
 const ThemeSwitcher = () => {
-  const [mounted, setMounted] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState();
   const { systemTheme, theme, setTheme } = useTheme();
 
-  // useEffect only runs on the client, so now we can safely show the UI
+
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+    setCurrentTheme(theme === 'system' ? systemTheme : theme);
+  }, [systemTheme, theme]);
 
   return (
     <button

@@ -48,9 +48,13 @@ export default function Case({
       />
 
       <div className='flex flex-col w-full justify-between p-4 leading-normal'>
-        <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+        <a
+          href={`https://www.op.gg/summoners/euw/${gameName}-${tagLine}`}
+          target='_blank'
+          className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'
+        >
           {gameName + '#' + tagLine}
-        </h5>
+        </a>
 
         <div className='flex justify-between'>
           <p className='mb-3 font-bold dark:text-gray-400'>
