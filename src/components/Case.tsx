@@ -51,6 +51,7 @@ export default function Case({
         <a
           href={`https://www.op.gg/summoners/euw/${gameName}-${tagLine}`}
           target='_blank'
+          rel='noreferrer'
           className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'
         >
           {gameName + '#' + tagLine}
