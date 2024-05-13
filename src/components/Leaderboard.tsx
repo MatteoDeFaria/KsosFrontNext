@@ -8,11 +8,13 @@ import Case from './Case';
 enum TypeQueue {
   'RANKED_SOLO_5x5',
   'RANKED_FLEX_SR',
+  'RANKED_TFT',
 }
 
 export default function Leaderboard() {
   const [soloQueue, setSoloQueue] = useState<LolLeaderboard[]>([]);
   const [flexQueue, setFlexQueue] = useState<LolLeaderboard[]>([]);
+  const [tftQueue, setTftQueue] = useState<LolLeaderboard[]>([]);
   const [typeQueue, setTypeQueue] = useState<TypeQueue>(
     TypeQueue.RANKED_SOLO_5x5
   );
@@ -36,8 +38,18 @@ export default function Leaderboard() {
       }
     };
 
+    const fetchTftQueue = async () => {
+      try {
+        const response = await api.getLeaderboard('RANKED_TFT');
+        setTftQueue(response);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
     fetchSoloQueue();
     fetchFlexQueue();
+    fetchTftQueue();
   }, []);
 
   return (
@@ -69,6 +81,7 @@ export default function Leaderboard() {
         <button
           type='button'
           className='px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-e-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700'
+          onClick={() => setTypeQueue(TypeQueue.RANKED_TFT)}
         >
           TFT
         </button>
@@ -92,7 +105,9 @@ export default function Leaderboard() {
                 />
               );
             })
-          : flexQueue.map((element, index) => {
+          : null}
+        {typeQueue === TypeQueue.RANKED_FLEX_SR
+          ? flexQueue.map((element, index) => {
               return (
                 <Case
                   key={index}
@@ -107,7 +122,26 @@ export default function Leaderboard() {
                   wins={element.wins}
                 />
               );
-            })}
+            })
+          : null}
+        {typeQueue === TypeQueue.RANKED_TFT
+          ? tftQueue.map((element, index) => {
+              return (
+                <Case
+                  key={index}
+                  gameName={element.gameName}
+                  leagueId={element.leagueId}
+                  leaguePoints={element.leaguePoints}
+                  losses={element.losses}
+                  queueType={element.queueType}
+                  rank={element.rank}
+                  tagLine={element.tagLine}
+                  tier={element.tier}
+                  wins={element.wins}
+                />
+              );
+            })
+          : null}
       </div>
     </Suspense>
   );
