@@ -5,10 +5,33 @@ import api from '@/utils/api';
 import LolLeaderboard from '@/type/LolTypes';
 import Case from './Case';
 
+interface ArrayLeaderboardProps {
+  dataArray: LolLeaderboard[];
+}
+
 enum TypeQueue {
   'RANKED_SOLO_5x5',
   'RANKED_FLEX_SR',
   'RANKED_TFT',
+}
+
+function CreateCard({ dataArray }: ArrayLeaderboardProps) {
+  return dataArray.map((element, index) => {
+    return (
+      <Case
+        key={index}
+        gameName={element.gameName}
+        leagueId={element.leagueId}
+        leaguePoints={element.leaguePoints}
+        losses={element.losses}
+        queueType={element.queueType}
+        rank={element.rank}
+        tagLine={element.tagLine}
+        tier={element.tier}
+        wins={element.wins}
+      />
+    );
+  });
 }
 
 export default function Leaderboard() {
@@ -52,6 +75,20 @@ export default function Leaderboard() {
     fetchTftQueue();
   }, []);
 
+  const ChooseQueueType = () => {
+    switch (typeQueue) {
+      case TypeQueue.RANKED_SOLO_5x5: {
+        return <CreateCard dataArray={soloQueue} />;
+      }
+      case TypeQueue.RANKED_FLEX_SR: {
+        return <CreateCard dataArray={flexQueue} />;
+      }
+      case TypeQueue.RANKED_TFT: {
+        return <CreateCard dataArray={tftQueue} />;
+      }
+    }
+  };
+
   return (
     <Suspense fallback={'Loading ...'}>
       <div className='text-center pt-20'>
@@ -88,60 +125,7 @@ export default function Leaderboard() {
       </div>
 
       <div className='p-4 py-12 grid grid-row gap-6 justify-items-center w-full'>
-        {typeQueue === TypeQueue.RANKED_SOLO_5x5
-          ? soloQueue.map((element, index) => {
-              return (
-                <Case
-                  key={index}
-                  gameName={element.gameName}
-                  leagueId={element.leagueId}
-                  leaguePoints={element.leaguePoints}
-                  losses={element.losses}
-                  queueType={element.queueType}
-                  rank={element.rank}
-                  tagLine={element.tagLine}
-                  tier={element.tier}
-                  wins={element.wins}
-                />
-              );
-            })
-          : null}
-        {typeQueue === TypeQueue.RANKED_FLEX_SR
-          ? flexQueue.map((element, index) => {
-              return (
-                <Case
-                  key={index}
-                  gameName={element.gameName}
-                  leagueId={element.leagueId}
-                  leaguePoints={element.leaguePoints}
-                  losses={element.losses}
-                  queueType={element.queueType}
-                  rank={element.rank}
-                  tagLine={element.tagLine}
-                  tier={element.tier}
-                  wins={element.wins}
-                />
-              );
-            })
-          : null}
-        {typeQueue === TypeQueue.RANKED_TFT
-          ? tftQueue.map((element, index) => {
-              return (
-                <Case
-                  key={index}
-                  gameName={element.gameName}
-                  leagueId={element.leagueId}
-                  leaguePoints={element.leaguePoints}
-                  losses={element.losses}
-                  queueType={element.queueType}
-                  rank={element.rank}
-                  tagLine={element.tagLine}
-                  tier={element.tier}
-                  wins={element.wins}
-                />
-              );
-            })
-          : null}
+        <ChooseQueueType />
       </div>
     </Suspense>
   );
