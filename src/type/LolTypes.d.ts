@@ -8,6 +8,7 @@ interface LolLeaderboard {
   losses: number;
   gameName: string;
   tagLine: string;
+  profileIconId: number;
 }
 
 export default LolLeaderboard;

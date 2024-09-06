@@ -9,6 +9,7 @@ export default function Case({
   tagLine,
   tier,
   wins,
+  profileIconId,
 }: LolLeaderboard) {
   const image = [
     '/Rank=Iron.png',
@@ -48,14 +49,27 @@ export default function Case({
       />
 
       <div className='flex flex-col w-full justify-between p-4 leading-normal'>
-        <a
-          href={`https://www.op.gg/summoners/euw/${gameName}-${tagLine}`}
-          target='_blank'
-          rel='noreferrer'
-          className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'
-        >
-          {gameName + '#' + tagLine}
-        </a>
+        <div className='flex justify-between mb-4'>
+          <a
+            href={`https://www.op.gg/summoners/euw/${gameName}-${tagLine}`}
+            target='_blank'
+            rel='noreferrer'
+            className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'
+          >
+            {gameName + '#' + tagLine}
+          </a>
+          <div className='max-w-14 max-h-14'>
+            <Image
+              loader={() => `https://ddragon.leagueoflegends.com/cdn/14.17.1/img/profileicon/${profileIconId}.png`}
+              src={`https://ddragon.leagueoflegends.com/cdn/14.17.1/img/profileicon/${profileIconId}.png`}
+              alt='Rank emblem'
+              width={1000}
+              height={1000}
+              priority
+              className='object-cover w-3/4 rounded-t-lg h-full md:h-auto md:w-48'
+            />
+          </div>
+        </div>
 
         <div className='flex justify-between'>
           <p className='mb-3 font-bold dark:text-gray-400'>

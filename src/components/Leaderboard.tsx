@@ -29,6 +29,7 @@ function CreateCard({ dataArray }: ArrayLeaderboardProps) {
         tagLine={element.tagLine}
         tier={element.tier}
         wins={element.wins}
+        profileIconId={element.profileIconId}
       />
     );
   });
