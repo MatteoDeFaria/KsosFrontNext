@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://ksos.me/pacific_rim.jpeg',
-        width: 800,
-        height: 600,
+        width: 200,
+        height: 100,
       },
     ],
     locale: 'fr_FR',
