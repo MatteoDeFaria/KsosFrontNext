@@ -24,7 +24,13 @@ export const metadata: Metadata = {
     description: 'Leaderboard By Matteo DE FARIA',
     url: 'https://ksos.me',
     siteName: 'Ksos Leaderboard',
-    images: ['/favicon.ico'],
+    images: [
+      {
+        url: 'https://ksos.me/pacific_rim.jpeg',
+        width: 800,
+        height: 600,
+      },
+    ],
     locale: 'fr_FR',
     type: 'website',
   },

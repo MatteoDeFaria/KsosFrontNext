@@ -66,7 +66,6 @@ export default function Case({
               width={1000}
               height={1000}
               priority
-              className='object-cover w-3/4 rounded-t-lg h-full md:h-auto md:w-48'
             />
           </div>
         </div>
