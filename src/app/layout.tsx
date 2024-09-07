@@ -30,12 +30,6 @@ export const metadata: Metadata = {
         width: 200,
         height: 200,
       },
-      {
-        url: 'https://ksos.me/pacific_rim_alt.jpeg',
-        width: 640,
-        height: 640,
-        alt: 'Alt image'
-      },
     ],
     locale: 'fr_FR',
     type: 'website',
