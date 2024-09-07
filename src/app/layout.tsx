@@ -7,8 +7,10 @@ import Provider from '@/components/Provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ksos.me'),
   title: 'Ksos Leaderboard',
   description: 'Leaderboard By Matteo DE FARIA',
+  creator: 'Matteo DE FARIA',
   icons: {
     icon: [
       {
@@ -16,6 +18,15 @@ export const metadata: Metadata = {
         href: '/favicon.ico',
       },
     ],
+  },
+  openGraph: {
+    title: 'Ksos Leaderboard',
+    description: 'Leaderboard By Matteo DE FARIA',
+    url: 'https://ksos.me',
+    siteName: 'Ksos Leaderboard',
+    images: ['/favicon.ico'],
+    locale: 'fr_FR',
+    type: 'website',
   },
 };
 
