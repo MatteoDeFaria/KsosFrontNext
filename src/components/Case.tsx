@@ -1,5 +1,15 @@
 import Image from 'next/image';
 import LolLeaderboard from '@/type/LolTypes';
+import Iron from '/public/Rank=Iron.png';
+import Bronze from '/public/Rank=Bronze.png';
+import Silver from '/public/Rank=Silver.png';
+import Gold from '/public/Rank=Gold.png';
+import Platinum from '/public/Rank=Platinum.png';
+import Emerald from '/public/Rank=Emerald.png';
+import Diamond from '/public/Rank=Diamond.png';
+import Master from '/public/Rank=Master.png';
+import GrandMaster from '/public/Rank=Grandmaster.png';
+import Challenger from '/public/Rank=Challenger.png';
 
 export default function Case({
   gameName,
@@ -12,16 +22,16 @@ export default function Case({
   profileIconId,
 }: LolLeaderboard) {
   const image = [
-    '/Rank=Iron.png',
-    '/Rank=Bronze.png',
-    '/Rank=Silver.png',
-    '/Rank=Gold.png',
-    '/Rank=Platinum.png',
-    '/Rank=Emerald.png',
-    '/Rank=Diamond.png',
-    '/Rank=Master.png',
-    '/Rank=Grandmaster.png',
-    '/Rank=Challenger.png',
+    Iron,
+    Bronze,
+    Silver,
+    Gold,
+    Platinum,
+    Emerald,
+    Diamond,
+    Master,
+    GrandMaster,
+    Challenger,
   ];
 
   const emblem = [
@@ -42,10 +52,9 @@ export default function Case({
       <Image
         src={image[emblem.indexOf(tier)]}
         alt='Rank emblem'
-        width={1000}
-        height={1000}
+        width={192}
+        height={192}
         priority
-        className='object-cover w-3/4 rounded-t-lg h-full md:h-auto md:w-48'
       />
 
       <div className='flex flex-col w-full justify-between p-4 leading-normal'>
@@ -58,14 +67,13 @@ export default function Case({
           >
             {gameName + '#' + tagLine}
           </a>
-          <div className='max-w-14 max-h-14'>
+          <div>
             <Image
-              loader={() => `https://ddragon.leagueoflegends.com/cdn/14.17.1/img/profileicon/${profileIconId}.png`}
               src={`https://ddragon.leagueoflegends.com/cdn/14.17.1/img/profileicon/${profileIconId}.png`}
-              alt='Rank emblem'
-              width={1000}
-              height={1000}
-              priority
+              alt='Icon Profile'
+              width={56}
+              height={56}
+              loading='lazy'
             />
           </div>
         </div>
