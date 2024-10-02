@@ -9,9 +9,9 @@ const Provider = ({ children }: Props) => {
     <ThemeProvider
       enableSystem
       disableTransitionOnChange
-      storageKey='theme'
-      attribute='class'
-      defaultTheme='system'
+      storageKey="theme"
+      attribute="class"
+      defaultTheme="system"
     >
       {children}
     </ThemeProvider>
