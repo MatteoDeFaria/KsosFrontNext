@@ -12,24 +12,28 @@ function getSummoner(
   data: LeagueMatchEntity,
   summonerName: string,
 ): ParticipantDto {
-  const me: ParticipantDto =
+  const summoner: ParticipantDto =
     data.info.participants.find(
       (element) => element.riotIdGameName === summonerName,
     ) ?? data.info.participants[0];
 
-  return me;
+  return summoner;
 }
 
 function TestCard({ dataArray, summonerName }: ArrayLeagueMatchEntity) {
   const realSummonerName: string = summonerName.split('-')[0];
 
   return dataArray.map((element: LeagueMatchEntity, index: number) => {
-    const me: ParticipantDto = getSummoner(element, realSummonerName);
+    const summoner: ParticipantDto = getSummoner(element, realSummonerName);
 
-    // eslint-disable-next-line no-console
-    console.log('team id = ' + me.teamId); // if equal 1 lose game
-
-    return <Card key={index} info={element.info} metadata={element.metadata} />;
+    return (
+      <Card
+        key={index}
+        info={element.info}
+        metadata={element.metadata}
+        summoner={summoner}
+      />
+    );
   });
 }
 
