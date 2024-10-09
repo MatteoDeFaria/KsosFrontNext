@@ -333,7 +333,7 @@ interface MissionsDto {
 
 interface PerksDto {
   statPerks: PerkStatsDto;
-  styles: PerkStyleDto;
+  styles: PerkStyleDto[];
 }
 
 interface PerkStatsDto {

@@ -1,11 +1,6 @@
 import Image from 'next/image';
 import { InfosDto, MetaDataDto, ParticipantDto } from '@/type/LeagueMatch';
 
-// enum GameMode {
-//   ARAM = 120,
-//   NORMAL = 450,
-// }
-
 enum TeamId {
   BLUESIDE = 100,
   REDSIDE = 200,
@@ -52,7 +47,7 @@ interface CardTest {
   summoner: ParticipantDto;
 }
 
-export default function Card({ info, metadata, summoner }: CardTest) {
+export default async function Card({ info, metadata, summoner }: CardTest) {
   const blueSide = getSide(info.participants, info.gameMode, TeamId.BLUESIDE);
   const redSide = getSide(info.participants, info.gameMode, TeamId.REDSIDE);
 
@@ -75,9 +70,49 @@ export default function Card({ info, metadata, summoner }: CardTest) {
     summoner.item6,
   ];
 
+  const summonerSpellJson = await fetch(
+    'https://ddragon.leagueoflegends.com/cdn/14.20.1/data/en_US/summoner.json',
+  ).then((res) => res.json());
+
+  const summonerSpell1Data: string =
+    Object.keys(summonerSpellJson.data).find(
+      (elem) =>
+        summonerSpellJson.data[elem].key === summoner.summoner1Id.toString(),
+    ) ?? summonerSpellJson.data[0];
+
+  const summonerSpell2Data: string =
+    Object.keys(summonerSpellJson.data).find(
+      (elem) =>
+        summonerSpellJson.data[elem].key === summoner.summoner2Id.toString(),
+    ) ?? summonerSpellJson.data[0];
+
+  const summonerRuneJson = await fetch(
+    'https://ddragon.leagueoflegends.com/cdn/14.20.1/data/en_US/runesReforged.json',
+  ).then((res) => res.json());
+
+  const summonerRune1 = summoner.perks.styles.find(
+    (elem) => elem.description === 'primaryStyle',
+  );
+
+  const summonerRune2 = summoner.perks.styles.find(
+    (elem) => elem.description === 'subStyle',
+  );
+
+  const summonerRune1Data = summonerRuneJson.find(
+    (elem: { id: number }) => elem.id === summonerRune1?.style,
+  );
+
+  const urlSummonerRune1Icon = summonerRune1Data.slots[0].runes.find(
+    (elem: { id: number }) => elem.id === summonerRune1?.selections[0].perk,
+  ).icon;
+
+  const urlSummonerRune2Icon = summonerRuneJson.find(
+    (elem: { id: number }) => elem.id === summonerRune2?.style,
+  ).icon;
+
   return (
-    <div className="flex flex-col items-center rounded-lg shadow md:flex-row md:max-w-xl w-full bg-white border border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-      <div>
+    <div className="flex flex-col rounded-lg shadow md:flex-row md:max-w-xl w-full lg:max-w-screen-md bg-white border border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <div className="flex flex-col lg:w-1/4 md:w-full">
         <p>{info.gameMode}</p>
         <p>{'-----'}</p>
         <p>{summoner.win ? 'Win' : 'Lose'}</p>
@@ -86,18 +121,62 @@ export default function Card({ info, metadata, summoner }: CardTest) {
         </p>
       </div>
 
-      <div className="flex flex-col ">
-        <p>{`${summoner.kills}/${summoner.deaths}/${summoner.assists}`}</p>
-        <p>{`${kda} KDA`}</p>
-      </div>
-
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col lg:w-2/4 md:w-full">
+        <div className="flex flex-row">
+          <div>
+            <Image
+              className="rounded-full"
+              src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${summoner.championName}.png`}
+              alt="Icon Profile"
+              width={60}
+              height={60}
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <Image
+              src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/spell/${summonerSpellJson.data[summonerSpell1Data].id}.png`}
+              alt="Icon Profile"
+              width={30}
+              height={30}
+              loading="lazy"
+            />
+            <Image
+              src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/spell/${summonerSpellJson.data[summonerSpell2Data].id}.png`}
+              alt="Icon Profile"
+              width={30}
+              height={30}
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <Image
+              src={`https://ddragon.leagueoflegends.com/cdn/img/${urlSummonerRune1Icon}`}
+              alt="Icon Profile"
+              width={30}
+              height={30}
+              loading="lazy"
+            />
+            <Image
+              src={`https://ddragon.leagueoflegends.com/cdn/img/${urlSummonerRune2Icon}`}
+              alt="Icon Profile"
+              width={30}
+              height={30}
+              loading="lazy"
+            />
+          </div>
+          <div className="flex flex-col">
+            <p>{summoner.champLevel}</p>
+            <p>{`${summoner.kills}/${summoner.deaths}/${summoner.assists}`}</p>
+            <p>{`${kda} KDA`}</p>
+          </div>
+        </div>
         <p>Item:</p>
         <div className="flex flex-row space-x-1">
           {itemList.map((element, index) => {
             if (!element) {
               return (
-                <div key={index} className=" bg-slate-500 w-[30px] h-[30px]">
+                <div key={index} className=" bg-gray-400 w-[30px] h-[30px]">
                   <div className="grow"> </div>
                 </div>
               );
@@ -117,56 +196,44 @@ export default function Card({ info, metadata, summoner }: CardTest) {
         </div>
       </div>
 
-      <div className="flex flex-col w-full justify-between p-4 leading-normal">
-        {/* <div className="flex justify-between mb-4">
-          <div>{info.gameMode}</div>
-        </div> */}
-
-        <div className="flex flex-row space-x-1">
-          <div className="flex flex-col justify-between text-left">
-            {blueSide.map((element, index) => {
-              return (
-                <div className="flex flex-row items-center" key={index}>
-                  <Image
-                    src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${element.championName}.png`}
-                    alt="Icon Profile"
-                    width={30}
-                    height={30}
-                    loading="lazy"
-                  />
-                  <p className="ml-2 font-bold dark:text-gray-400">
-                    {element.riotIdGameName}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="flex flex-col justify-between text-left">
-            {redSide.map((element, index) => {
-              return (
-                <div className="flex flex-row items-center" key={index}>
-                  <Image
-                    src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${element.championName === 'FiddleSticks' ? 'Fiddlesticks' : element.championName}.png`}
-                    alt="Icon Profile"
-                    width={30}
-                    height={30}
-                    loading="lazy"
-                  />
-                  <p className="ml-2 font-bold dark:text-gray-400">
-                    {element.riotIdGameName}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <p className="mb-3 font-bold dark:text-gray-400"></p>
-          <p className="mb-3 font-bold dark:text-gray-400"></p>
+      <div className="grid grid-cols-2 lg:w-2/6 md:w-full">
+        <div className="flex flex-col justify-between text-left">
+          {blueSide.map((element, index) => {
+            return (
+              <div className="flex flex-row items-center" key={index}>
+                <Image
+                  src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${element.championName}.png`}
+                  alt="Icon Profile"
+                  width={30}
+                  height={30}
+                  loading="lazy"
+                />
+                <p className="ml-2 font-bold dark:text-gray-400 text-sm truncate ...">
+                  {element.riotIdGameName}
+                </p>
+              </div>
+            );
+          })}
         </div>
 
-        <p className="mb-3 font-bold dark:text-gray-400"></p>
+        <div className="flex flex-col justify-between text-left">
+          {redSide.map((element, index) => {
+            return (
+              <div className="flex flex-row items-center" key={index}>
+                <Image
+                  src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${element.championName === 'FiddleSticks' ? 'Fiddlesticks' : element.championName}.png`}
+                  alt="Icon Profile"
+                  width={30}
+                  height={30}
+                  loading="lazy"
+                />
+                <p className="ml-2 font-bold dark:text-gray-400 text-sm truncate ...">
+                  {element.riotIdGameName}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

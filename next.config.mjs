@@ -25,6 +25,18 @@ const nextConfig = {
         port: '',
         pathname: '/cdn/14.19.1/img/item/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ddragon.leagueoflegends.com',
+        port: '',
+        pathname: '/cdn/14.19.1/img/spell/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ddragon.leagueoflegends.com',
+        port: '',
+        pathname: '/cdn/img/perk-images/**',
+      },
     ],
   },
 };
