@@ -2,11 +2,7 @@ import { Suspense } from 'react';
 import api from '@/utils/api';
 import { LeagueMatchEntity, ParticipantDto } from '@/type/LeagueMatch';
 import Card from '@/components/summoners/Card';
-
-interface ArrayLeagueMatchEntity {
-  dataArray: LeagueMatchEntity[];
-  summonerName: string;
-}
+import { notFound } from 'next/navigation';
 
 function getSummoner(
   data: LeagueMatchEntity,
@@ -20,25 +16,27 @@ function getSummoner(
   return summoner;
 }
 
-function TestCard({ dataArray, summonerName }: ArrayLeagueMatchEntity) {
+function GameCard({
+  dataArray,
+  summonerName,
+}: {
+  dataArray: LeagueMatchEntity[];
+  summonerName: string;
+}) {
   const realSummonerName: string = summonerName.split('-')[0];
 
   return dataArray.map((element: LeagueMatchEntity, index: number) => {
     const summoner: ParticipantDto = getSummoner(element, realSummonerName);
 
-    return (
-      <Card
-        key={index}
-        info={element.info}
-        metadata={element.metadata}
-        summoner={summoner}
-      />
-    );
+    return <Card key={index} info={element.info} summoner={summoner} />;
   });
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const matches: LeagueMatchEntity[] = await api.getMatches(params.slug);
+
+  if (!matches) return notFound();
+
   return (
     <Suspense fallback={'Loading ...'}>
       <div className="min-h-screen bg-white dark:bg-gray-800">
@@ -48,7 +46,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </h5>
 
           <div className="p-4 py-12 grid grid-row gap-6 justify-items-center w-full">
-            <TestCard dataArray={matches} summonerName={params.slug} />
+            <GameCard dataArray={matches} summonerName={params.slug} />
           </div>
         </div>
       </div>
