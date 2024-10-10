@@ -1,6 +1,7 @@
 import axios from 'axios';
 import LolLeaderboard from '@/type/LolTypes';
-import LeagueMatchEntity from '@/type/LeagueMatch';
+import { LeagueMatchEntity } from '@/type/LeagueMatch';
+
 const backendUrl =
   process.env.NEXT_PUBLIC_KSOS_API_URL || 'http://localhost:3000/';
 
