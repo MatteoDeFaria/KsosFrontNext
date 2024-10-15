@@ -26,7 +26,11 @@ export default function Game({
       <p>{gameType}</p>
       <p>{'-----'}</p>
       <p>{summoner.win ? 'Win' : 'Lose'}</p>
-      <p>{timeSpendInGame.getMinutes() + ':' + timeSpendInGame.getSeconds()}</p>
+      <p>
+        {timeSpendInGame.getMinutes() +
+          ':' +
+          timeSpendInGame.getSeconds().toString().padStart(2, '0')}
+      </p>
     </div>
   );
 }

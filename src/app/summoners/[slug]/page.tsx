@@ -34,6 +34,7 @@ function GameCard({
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const matches: LeagueMatchEntity[] = await api.getMatches(params.slug);
+  const user: string[] = decodeURI(params.slug).split('-');
 
   if (!matches) return notFound();
 
@@ -42,7 +43,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <div className="min-h-screen bg-white dark:bg-gray-800">
         <div className="text-center pt-20">
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {params.slug}
+            {`${user[0]}#${user[1]}`}
           </h5>
 
           <div className="p-4 py-12 grid grid-row gap-6 justify-items-center w-full">
