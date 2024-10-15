@@ -56,6 +56,10 @@ export default async function Card({
   const blueSide = getSide(info.participants, info.gameMode, TeamId.BLUESIDE);
   const redSide = getSide(info.participants, info.gameMode, TeamId.REDSIDE);
 
+  const bgColor = summoner.win
+    ? 'bg-blue-200 border-blue-300 hover:bg-blue-300 dark:border-winner-card-hover dark:bg-winner-card dark:hover:bg-winner-card-hover'
+    : 'bg-rose-200 border-rose-300 hover:bg-rose-300 dark:border-looser-card-hover dark:bg-looser-card dark:hover:bg-looser-card-hover';
+
   const kda: string = Number(
     ((summoner.kills + summoner.assists) / summoner.deaths).toFixed(2),
   ).toString(); // round up to 2 number after the comma.
@@ -71,7 +75,9 @@ export default async function Card({
   ];
 
   return (
-    <div className="flex flex-col rounded-lg shadow md:flex-row md:max-w-xl w-full lg:max-w-screen-md items-center bg-white border border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <div
+      className={`flex flex-col rounded-lg shadow md:flex-row md:max-w-xl w-full lg:max-w-screen-md items-center border ${bgColor}`}
+    >
       <div className="lg:w-1/6 md:w-full p-4">
         <Game info={info} summoner={summoner} />
       </div>

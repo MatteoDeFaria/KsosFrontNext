@@ -14,6 +14,12 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        'winner-card': '#2f436e',
+        'winner-card-hover': '#3e5992',
+        'looser-card': '#703C47',
+        'looser-card-hover': '#914e5c',
+      },
     },
   },
   plugins: [],
