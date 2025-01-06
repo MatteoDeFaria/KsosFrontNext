@@ -54,7 +54,7 @@ pipeline {
 
         stage('Run Docker Image') {
             steps {
-                sh "docker run --name $CONTAINER_NAME --env NEXT_PUBLIC_KSOS_API_URL=$NEXT_PUBLIC_KSOS_API_URL NEXT_PUBLIC_RIOT_DRAGON_VERSION=$NEXT_RIOT_DRAGON_VERSION --restart always -p 3001:3000 -d $REGISTRY:latest"
+                sh "docker run --name $CONTAINER_NAME --env NEXT_PUBLIC_KSOS_API_URL=$NEXT_PUBLIC_KSOS_API_URL --env NEXT_PUBLIC_RIOT_DRAGON_VERSION=$NEXT_RIOT_DRAGON_VERSION --restart always -p 3001:3000 -d $REGISTRY:latest"
             }
         }
     }
