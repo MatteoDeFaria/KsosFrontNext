@@ -5,7 +5,7 @@ export default function Team({ summoner }: { summoner: ParticipantDto }) {
   return (
     <div className="flex flex-row items-center">
       <Image
-        src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${summoner.championName === 'FiddleSticks' ? 'Fiddlesticks' : summoner.championName}.png`}
+        src={`https://ddragon.leagueoflegends.com/cdn/${process.env.NEXT_PUBLIC_RIOT_DRAGON_VERSION}/img/champion/${summoner.championName === 'FiddleSticks' ? 'Fiddlesticks' : summoner.championName}.png`}
         alt="Icon Profile"
         width={30}
         height={30}

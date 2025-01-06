@@ -15,7 +15,7 @@ export default async function Spell({ summonerId }: { summonerId: string }) {
   return (
     <div>
       <Image
-        src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/spell/${summonerSpellIconUrl}.png`}
+        src={`https://ddragon.leagueoflegends.com/cdn/${process.env.NEXT_PUBLIC_RIOT_DRAGON_VERSION}/img/spell/${summonerSpellIconUrl}.png`}
         alt="Icon Profile"
         width={30}
         height={30}

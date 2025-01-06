@@ -18,7 +18,7 @@ export default function Item({ itemList }: { itemList: number[] }) {
           return (
             <div key={index}>
               <Image
-                src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/item/${element}.png`}
+                src={`https://ddragon.leagueoflegends.com/cdn/${process.env.NEXT_PUBLIC_RIOT_DRAGON_VERSION}/img/item/${element}.png`}
                 alt="Item Icon"
                 width={30}
                 height={30}

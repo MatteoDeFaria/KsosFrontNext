@@ -55,7 +55,6 @@ export default async function Card({
 }) {
   const blueSide = getSide(info.participants, info.gameMode, TeamId.BLUESIDE);
   const redSide = getSide(info.participants, info.gameMode, TeamId.REDSIDE);
-
   const bgColor = summoner.win
     ? 'bg-blue-200 border-blue-300 hover:bg-blue-300 dark:border-winner-card-hover dark:bg-winner-card dark:hover:bg-winner-card-hover'
     : 'bg-rose-200 border-rose-300 hover:bg-rose-300 dark:border-looser-card-hover dark:bg-looser-card dark:hover:bg-looser-card-hover';
@@ -87,7 +86,7 @@ export default async function Card({
           <div>
             <Image
               className="rounded-full"
-              src={`https://ddragon.leagueoflegends.com/cdn/14.19.1/img/champion/${summoner.championName}.png`}
+              src={`https://ddragon.leagueoflegends.com/cdn/${process.env.NEXT_PUBLIC_RIOT_DRAGON_VERSION}/img/champion/${summoner.championName}.png`}
               alt="Icon Profile"
               width={60}
               height={60}
