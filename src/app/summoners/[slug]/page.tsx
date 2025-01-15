@@ -23,7 +23,7 @@ function GameCard({
   dataArray: LeagueMatchEntity[];
   summonerName: string;
 }) {
-  const realSummonerName: string = summonerName.split('-')[0];
+  const realSummonerName: string = decodeURI(summonerName.split('-')[0]);
 
   return dataArray.map((element: LeagueMatchEntity, index: number) => {
     const summoner: ParticipantDto = getSummoner(element, realSummonerName);
