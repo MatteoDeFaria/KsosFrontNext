@@ -74,7 +74,7 @@ export default function Case({
             </a>
             <div>
               <Image
-                src={`https://ddragon.leagueoflegends.com/cdn/15.1.1/img/profileicon/${profileIconId}.png`}
+                src={`https://ddragon.leagueoflegends.com/cdn/15.3.1/img/profileicon/${profileIconId}.png`}
                 alt="Icon Profile"
                 width={56}
                 height={56}
